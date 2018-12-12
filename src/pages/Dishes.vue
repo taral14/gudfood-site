@@ -5,19 +5,19 @@
               v-for="category in categories"
               :type="selectedCategory === category ? 'primary' : ''"
               @click="selectedCategory = category"
-              size="mini"
+              size="small"
       >{{category.name}}</el-button>
     </el-button-group>
 
-    <el-card class="box-card" v-for="(dishes, name) in filterDishes">
+    <div class="dish" v-for="(dishes, name) in filterDishes" :key="dishes.map(d=>d.id).join('-')">
       <div class="dish-name">{{name}}</div>
-      <div class="garnishes">
-        <el-button
-                v-for="dish in dishes"
-                size="mini"
-        >{{dish.garnish ? dish.garnish : dish.name}}</el-button>
+      <div class="garnishes" v-if="dishes.length > 1">
+        <el-checkbox v-for="dish in dishes">{{dish.garnish ? dish.garnish : dish.name}}</el-checkbox>
       </div>
-    </el-card>
+      <div v-else class="garnishes">
+        <el-checkbox>Заказать</el-checkbox>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -53,10 +53,17 @@ export default {
 </script>
 
 <style scoped>
-.box-card {
-  margin-top: 10px;
+.dish {
+  padding: 5px 10px;
+  border-bottom: 1px dashed #dadada;
 }
-.dish-name {
+.dish:hover {
+  background: #ecf8ff;
+}
+.dish .dish-name {
   margin-bottom: 5px;
+}
+.dish .el-checkbox+.el-checkbox {
+  margin-left: 15px;
 }
 </style>
