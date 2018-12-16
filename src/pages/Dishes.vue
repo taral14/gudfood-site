@@ -9,23 +9,17 @@
       >{{category.name}}</el-button>
     </el-button-group>
 
-    <div class="dish" v-for="(dishes, name) in filterDishes" :key="dishes.map(d=>d.id).join('-')">
-      <div class="dish-name">{{name}}</div>
-      <div class="garnishes" v-if="dishes.length > 1">
-        <el-checkbox v-for="dish in dishes">{{dish.garnish ? dish.garnish : dish.name}}</el-checkbox>
-      </div>
-      <div v-else class="garnishes">
-        <el-checkbox>Заказать</el-checkbox>
-      </div>
-    </div>
+    <dish-list-view v-for="(dishes, name) in filterDishes" :dishes="dishes" :name="name" :key="dishes.map(d=>d.id).join('-')"/>
   </div>
 </template>
 
 <script>
 import http from '../http/common'
 import _ from 'lodash'
+import DishListView from "./Dishes/ListView";
 export default {
   name: 'Dishes',
+  components: {DishListView},
   data () {
     let categories = [
         {id: 1, name: 'Салаты'},

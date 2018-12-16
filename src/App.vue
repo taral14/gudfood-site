@@ -13,7 +13,10 @@
 import AppHeader from "./components/AppHeader";
 export default {
   name: 'App',
-    components: {AppHeader},
+  components: {AppHeader},
+  created() {
+    this.$store.dispatch('auth/tryToAutoSignIn')
+  },
 }
 </script>
 
