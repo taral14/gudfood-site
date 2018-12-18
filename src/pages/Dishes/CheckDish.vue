@@ -25,7 +25,10 @@
         await this.$store.dispatch('dishes/addToFavourite', this.id)
         this.loading = false
       }
-    }
+    },
+    created() {
+        this.checked = this.$store.dispatch('dishes/isFavourite', this.id)
+    },
   }
 </script>
 
