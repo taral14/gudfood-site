@@ -27,5 +27,17 @@
 </script>
 
 <style scoped>
-
+  .dish {
+    padding: 5px 10px;
+    border-bottom: 1px dashed #dadada;
+  }
+  .dish:hover {
+    background: #ecf8ff;
+  }
+  .dish .dish-name {
+    margin-bottom: 5px;
+  }
+  .dish .el-checkbox+.el-checkbox {
+    margin-left: 15px;
+  }
 </style>

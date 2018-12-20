@@ -1,5 +1,5 @@
 <template>
-  <el-checkbox :class="{loading: loading}" :disabled="loading" v-model="checked" @change="change">{{name}}</el-checkbox>
+  <el-checkbox :disabled="loading" v-model="checked" @change="change">{{name}}</el-checkbox>
 </template>
 
 <script>
@@ -26,14 +26,8 @@
         this.loading = false
       }
     },
-    created() {
-        this.checked = this.$store.dispatch('dishes/isFavourite', this.id)
+    async created() {
+        this.checked = await this.$store.dispatch('dishes/isFavourite', this.id)
     },
   }
 </script>
-
-<style scoped>
-  .loading {
-    cursor: wait !important;
-  }
-</style>

@@ -36,8 +36,7 @@ export default {
                     commit('setToken', response.data.token)
                     commit('setUser', response.data.user)
 
-                    dispatch('dishes/loadFavourites', {root: true})
-
+                    dispatch('dishes/loadFavourites', null, {root: true})
 
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem('user', JSON.stringify(response.data.user))
@@ -59,7 +58,7 @@ export default {
                     commit('setToken', token)
                     commit('setUser', user)
 
-                    dispatch('dishes/loadFavourites', {root: true})
+                    dispatch('dishes/loadFavourites', null, {root: true})
 
                     resolve({user: user, token: token})
                 } else {

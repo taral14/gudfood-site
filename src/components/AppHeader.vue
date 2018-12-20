@@ -6,7 +6,7 @@
     <el-submenu index="2" v-if="isAuthenticated" class="right-menu">
       <template slot="title">{{user.username}}</template>
       <el-menu-item index="SignIn" @click="signout">Logout</el-menu-item>
-      <el-menu-item :index="false" @click="scrapping">Спарсить</el-menu-item>
+      <el-menu-item index="" @click="scrapping">Спарсить</el-menu-item>
     </el-submenu>
     <el-menu-item v-else index="SignIn" class="right-menu">Sign in</el-menu-item>
   </el-menu>
@@ -38,7 +38,7 @@
         http.get('/dishes/scrapping')
       },
       handleSelect(name) {
-        if(name) {
+        if(name !== '') {
             this.$router.push({name})
         }
       }

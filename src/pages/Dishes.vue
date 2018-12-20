@@ -9,7 +9,15 @@
       >{{category.name}}</el-button>
     </el-button-group>
 
-    <dish-list-view v-for="(dishes, name) in filterDishes" :dishes="dishes" :name="name" :key="dishes.map(d=>d.id).join('-')"/>
+    <div v-if="loading" class="loading">Loading...</div>
+    <div v-else class="dishes-list">
+      <dish-list-view
+              v-for="(dishes, name) in filterDishes"
+              :dishes="dishes"
+              :name="name"
+              :key="dishes.map(d=>d.id).join('-')"
+      />
+    </div>
   </div>
 </template>
 
@@ -31,7 +39,8 @@ export default {
     return {
         dishes: [],
         categories: categories,
-        selectedCategory: categories[0]
+        selectedCategory: categories[0],
+        loading: false,
     }
   },
   computed: {
@@ -41,23 +50,18 @@ export default {
       }
   },
   async created() {
+    this.loading = true
     this.dishes = await http.get('/dishes').then(r => r.data)
+    this.loading = false
   },
 }
 </script>
 
 <style scoped>
-.dish {
-  padding: 5px 10px;
-  border-bottom: 1px dashed #dadada;
+.loading {
+  padding: 20px 5px;
 }
-.dish:hover {
-  background: #ecf8ff;
-}
-.dish .dish-name {
-  margin-bottom: 5px;
-}
-.dish .el-checkbox+.el-checkbox {
-  margin-left: 15px;
+.dishes-list {
+  margin-top: 10px;
 }
 </style>

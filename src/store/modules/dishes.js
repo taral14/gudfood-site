@@ -10,13 +10,23 @@ export default {
             state.favourites = value
         }
     },
-    getters: {},
+    getters: {
+        favourites(state) {
+            return state.favourites
+        }
+    },
     actions: {
-        isFavourite({state}, dishId) {
-            return state.favourites.findIndex(f => f.dishId === dishId) !== -1
+        isFavourite({state}, id) {
+            return state.favourites.findIndex(item => item === id) !== -1
         },
-        addToFavourite({commit}, dishId) {
-            return http.post(`/dishes/${dishId}/favourites`)
+        addToFavourite({commit, getters}, dishId) {
+            return http.post(`/dishes/${dishId}/favourites`).then(r => {
+                if(r.status === 204) {
+                    let favourites = getters.favourites
+                    favourites.push(dishId)
+                    commit('setFavourites', favourites)
+                }
+            })
         },
         loadFavourites({commit}) {
             http.get(`/dishes/favourites`).then(r => {
