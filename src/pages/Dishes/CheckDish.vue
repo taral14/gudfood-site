@@ -22,7 +22,11 @@
     methods: {
       async change() {
         this.loading = true
-        await this.$store.dispatch('dishes/addToFavourite', this.id)
+        if(this.checked) {
+            await this.$store.dispatch('dishes/addToFavourite', this.id)
+        } else {
+            await this.$store.dispatch('dishes/removeFromFavourite', this.id)
+        }
         this.loading = false
       }
     },

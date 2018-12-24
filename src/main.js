@@ -10,6 +10,13 @@ import store from './store/index'
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import freeSolidIcons from '@fortawesome/fontawesome-free-solid/'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(freeSolidIcons)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

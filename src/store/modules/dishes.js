@@ -28,6 +28,13 @@ export default {
                 }
             })
         },
+        removeFromFavourite({commit, getters}, dishId) {
+            return http.delete(`/dishes/${dishId}/favourites`).then(r => {
+                if(r.status === 204) {
+                    commit('setFavourites', getters.favourites.filter(t => t === dishId))
+                }
+            })
+        },
         loadFavourites({commit}) {
             http.get(`/dishes/favourites`).then(r => {
                 commit('setFavourites', r.data);
